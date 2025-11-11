@@ -1,0 +1,35 @@
+<form method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label>Tên sản phẩm</label>
+    <input type="text" name="title" class="form-control" value="{{ product.title }}" required>
+  </div>
+  <div class="mb-3">
+    <label>Mô tả</label>
+    <textarea name="description" class="form-control">{{ product.description }}</textarea>
+  </div>
+  <div class="mb-3">
+    <label>Giá</label>
+    <input type="number" step="0.01" name="price" class="form-control" value="{{ product.price }}" required>
+  </div>
+  <div class="mb-3">
+    <label>Danh mục</label>
+    <input type="text" name="category" class="form-control" value="{{ product.category }}">
+  </div>
+  <div class="mb-3">
+    <label>Đánh giá</label>
+    <input type="number" step="0.1" name="rating" class="form-control" value="{{ product.rating }}">
+  </div>
+
+  <!-- 🆕 Input upload ảnh mới -->
+  <div class="mb-3">
+    <label>Ảnh mới (nếu muốn thay đổi)</label>
+    <input type="file" name="image" class="form-control">
+  </div>
+
+  <!-- 🖼️ Hiển thị ảnh cũ -->
+  {% if product.image %}
+    <img src="{{ product.image }}" width="150" class="mt-2">
+  {% endif %}
+
+  <button type="submit" class="btn btn-primary">Cập nhật</button>
+</form>

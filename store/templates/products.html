@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+  <aside class="col-md-3">
+    <div class="card mb-3 p-3">
+      <h6 class="mb-2">Bộ lọc</h6>
+
+      <label class="form-label small">Danh mục</label>
+      <div id="categoryList" class="mb-2">
+        <button class="btn btn-sm btn-outline-secondary mb-1 category-btn active" data-cat="">Tất cả</button>
+        {% for c in categories %}
+          <button class="btn btn-sm btn-outline-secondary mb-1 category-btn" data-cat="{{ c }}">{{ c }}</button>
+        {% endfor %}
+      </div>
+
+      <label class="form-label small mt-3">Khoảng giá (USD)</label>
+      <div class="d-flex gap-2 mb-2">
+        <input id="priceMin" type="number" class="form-control form-control-sm" placeholder="Min">
+        <input id="priceMax" type="number" class="form-control form-control-sm" placeholder="Max">
+      </div>
+      <button id="applyPriceBtn" class="btn btn-sm btn-primary w-100">Áp dụng</button>
+
+      <hr>
+
+      <h6 class="mb-2">Sắp xếp</h6>
+      <select id="sortSelect" class="form-select form-select-sm mb-2">
+        <option value="">Mặc định</option>
+        <option value="price_asc">Giá: thấp → cao</option>
+        <option value="price_desc">Giá: cao → thấp</option>
+        <option value="rating_desc">Đánh giá</option>
+      </select>
+
+      <hr>
+      <p class="small text-muted mb-0">Gợi ý: click "View" để xem chi tiết sản phẩm, "Add to Cart" để thêm vào giỏ.</p>
+    </div>
+  </aside>
+
+  <main class="col-md-9">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3 class="mb-0">Sản phẩm</h3>
+      <div class="text-muted small" id="resultInfo">Đang tải...</div>
+    </div>
+
+    <div id="productGrid" class="row g-4"></div>
+
+    <nav class="mt-4">
+      <ul id="pagination" class="pagination"></ul>
+    </nav>
+  </main>
+</div>
+
+<!-- Modal chi tiết -->
+<div class="modal fade" id="productModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body" id="productModalBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

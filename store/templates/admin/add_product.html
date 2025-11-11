@@ -1,0 +1,31 @@
+<form method="POST" enctype="multipart/form-data">
+  <div class="mb-3">
+    <label>Tên sản phẩm</label>
+    <input type="text" name="title" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label>Mô tả</label>
+    <textarea name="description" class="form-control"></textarea>
+  </div>
+  <div class="mb-3">
+    <label>Giá</label>
+    <input type="number" step="0.01" name="price" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label>Danh mục</label>
+    <input type="text" name="category" class="form-control">
+  </div>
+  <div class="mb-3">
+    <label>Đánh giá</label>
+    <input type="number" step="0.1" name="rating" class="form-control">
+  </div>
+
+  <!-- 🆕 Thêm input upload file -->
+  <div class="mb-3">
+    <label>Ảnh sản phẩm</label>
+    <input type="file" name="image" class="form-control">
+  </div>
+
+  <button type="submit" class="btn btn-success">Lưu sản phẩm</button>
+</form>
+

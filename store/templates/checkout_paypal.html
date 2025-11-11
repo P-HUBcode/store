@@ -1,0 +1,53 @@
+<!-- templates/checkout_paypal.html -->
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>Thanh toán PayPal</title>
+  <script src="https://www.paypal.com/sdk/js?client-id={{ config.get('PAYPAL_CLIENT_ID') or (env.PAYPAL_CLIENT_ID if env else '') }}&currency={{ order.currency or 'USD' }}"></script>
+</head>
+<body>
+  <h2>Thanh toán đơn hàng #{{ order.id }}</h2>
+  <p>Tổng: {{ order.total_amount }} {{ order.currency }}</p>
+
+  <div id="paypal-button-container"></div>
+
+  <script>
+    const purchaseValue = "{{ order.total_amount }}";
+    // Build purchase_units
+    const purchase_units = [{
+      amount: {
+        currency_code: "{{ order.currency }}",
+        value: purchaseValue
+      }
+    }];
+
+    paypal.Buttons({
+      createOrder: function(data, actions) {
+        // call server to create order (preferred) or create client side
+        return fetch("/api/create-paypal-order", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ purchase_units })
+        })
+        .then(res => res.json())
+        .then(data => data.orderID);
+      },
+      onApprove: function(data, actions) {
+        // capture on server
+        return fetch("/api/capture-paypal-order/" + data.orderID, {
+          method: "POST"
+        }).then(res => res.json()).then(result => {
+          alert("Thanh toán thành công!");
+          // redirect to receipt or order page
+          window.location.href = "/products";
+        });
+      },
+      onError: function(err) {
+        console.error(err);
+        alert("Có lỗi trong quá trình thanh toán.");
+      }
+    }).render('#paypal-button-container');
+  </script>
+</body>
+</html>

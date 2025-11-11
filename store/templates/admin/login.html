@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5" style="max-width: 400px;">
+  <h3 class="mb-3 text-center">Đăng nhập quản trị</h3>
+  <form method="POST">
+    <div class="mb-3">
+      <label>Mật khẩu quản trị:</label>
+      <input type="password" name="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+  </form>
+</div>
+{% endblock %}
